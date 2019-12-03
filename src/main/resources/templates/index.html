@@ -8,12 +8,27 @@
     <title>hello-currency</title>
 </head>
 <body>
+
     <section>
         <div>currency list:</div>
         <ul th:each="cu:${currencyList}">
-            <li th:text="${cu.getName()}"></li>
+            <li>[[${cu.getName()}]]: [[${cu.getRate()}]]</li>
         </ul>
     </section>
+
+    <form action="@{/calc}" th:object="${CalcForm}" method="post">
+        <input type="number" placeholder="currency 1">
+        <select>
+        <option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>
+        </select>
+
+        <input type="number" placeholder="currency 2">
+        <select>
+        <option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>
+        </select>
+        <input type="submit" content="submit">
+
+    </form>
 
 </body>
 </html>
