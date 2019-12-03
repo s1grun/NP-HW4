@@ -5,12 +5,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "currency", schema = "public", catalog = "postgres")
-public class CurrencyEntity {
+public class CurrencyEntity implements CurrencyDTO{
     private String name;
     private double rate;
 
     @Id
     @Column(name = "name", nullable = false, length = -1)
+    @Override
     public String getName() {
         return name;
     }
@@ -34,6 +35,7 @@ public class CurrencyEntity {
 
     @Basic
     @Column(name = "rate", nullable = false, precision = 0)
+    @Override
     public double getRate() {
         return rate;
     }

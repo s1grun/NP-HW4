@@ -1,5 +1,6 @@
 package com.example.hw4.application;
 
+import com.example.hw4.domain.CurrencyDTO;
 import com.example.hw4.domain.CurrencyEntity;
 import com.example.hw4.repository.CurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class CurrencyService {
     @Autowired
     private CurrencyRepository currRepo;
 
-    public List<CurrencyEntity> getAllCurrencies() {
+    public List<? extends CurrencyDTO> getAllCurrencies() {
         return currRepo.findAll();
     }
 
