@@ -6,6 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>hello-currency</title>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,6 +23,8 @@
 
     <form th:action="@{/calc}" th:object="${calcForm}" method="post">
         <input type="number" placeholder="currency 1" th:field="*{num1}">
+        <span class="error" th:if="${#fields.hasErrors('num1')}"
+              th:errors="*{num1}">num1 Error</span>
         <select th:field="*{currency1}">
         <option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>
         </select>

@@ -1,5 +1,11 @@
 package com.example.hw4.controller;
 
+import org.springframework.format.annotation.NumberFormat;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
+
 /**
  * Created by weng on 2019/12/3.
  */
@@ -39,6 +45,9 @@ public class CalcForm {
 //    private double res;
     private String currency1;
     private String currency2;
+
+    @NotNull(message = "Please input number")
+    @PositiveOrZero(message = "number need to be positive or zero")
     private float num1;
 
 
