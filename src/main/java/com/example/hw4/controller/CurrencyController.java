@@ -78,10 +78,10 @@ public class CurrencyController {
             model.addAttribute("currencyList", currencyList);
             model.addAttribute("calcForm", new CalcForm());
         }else {
-//            throw new IllegalException("currency "+ name+" already exist!");
-            model.addAttribute(ErrorHandler.ERR_KEY,"err");
-            model.addAttribute(ErrorHandler.ERR_VALUE,"currency "+ name+" already exist!");
-            return ErrorHandler.ERROR_PATH;
+            throw new IllegalException("currency "+ name+" already exist!");
+//            model.addAttribute(ErrorHandler.ERR_KEY,"err");
+//            model.addAttribute(ErrorHandler.ERR_VALUE,"currency "+ name+" already exist!");
+//            return ErrorHandler.ERROR_PATH;
         }
 
         return "index";

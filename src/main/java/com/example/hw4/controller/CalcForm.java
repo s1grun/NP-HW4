@@ -48,7 +48,7 @@ public class CalcForm {
     private String currency2;
 
 
-    @NotBlank(message = "Please input number")
+//    @NotBlank(message = "Please input number")
     @NotNull(message = "Please input number")
     @PositiveOrZero(message = "number need to be positive or zero")
     private float num1;
