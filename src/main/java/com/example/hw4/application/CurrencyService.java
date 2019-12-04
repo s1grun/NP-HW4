@@ -26,4 +26,9 @@ public class CurrencyService {
         return currRepo.getCurrencyByName(name);
     }
 
+    public CurrencyDTO createCurrency(String name, float rate){
+
+        return currRepo.save(new CurrencyEntity(name,rate));
+    }
+
 }

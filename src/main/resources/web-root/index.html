@@ -13,26 +13,58 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title>hello-currency</title>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 <body class="content">
 
     <section>
-        <div>currency list:</div>
+        <b>currency list:</b>
         <ul class="list-group" th:each="cu:${currencyList}">
             <li class="list-group-item">[[${cu.getName()}]]: [[${cu.getRate()}]]</li>
         </ul>
     </section>
 
+    <!--<form th:action="@{/calc}" th:object="${calcForm}" method="post">-->
+        <!--<input type="number" placeholder="currency 1" th:field="*{num1}">-->
+        <!--<select th:field="*{currency1}">-->
+        <!--<option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>-->
+        <!--</select>-->
+
+        <!--<span >res: [[${res}]]</span>-->
+        <!--<select th:field="*{currency2}">-->
+        <!--<option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>-->
+        <!--</select>-->
+        <!--<input class="btn btn-secondary" type="submit" value="submit">-->
+    <!--</form>-->
+    <b>calculate currency</b>
     <form th:action="@{/calc}" th:object="${calcForm}" method="post">
-        <input type="number" placeholder="currency 1" th:field="*{num1}">
+        <input step="any"  type="number" placeholder="currency 1" th:field="*{num1}">
+        <span class="error" th:if="${#fields.hasErrors('num1')}"
+              th:errors="*{num1}">num1 Error</span>
         <select th:field="*{currency1}">
-        <option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>
+            <option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>
         </select>
 
         <span >res: [[${res}]]</span>
         <select th:field="*{currency2}">
-        <option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>
+            <option th:each="cu:${currencyList}" th:value="${cu.getName()}" th:text="${cu.getName()}"> </option>
         </select>
+        <input  class="btn btn-secondary" type="submit" value="submit">
+    </form>
+
+
+    <b>add currency:</b>
+    <form th:action="@{/addCurrency}" th:object="${addCurrencyForm}" method="post">
+        <label for="crate">currency rate</label> <input step="any" id="crate" type="number" placeholder="currency rate" th:field="*{rate}">
+        <span class="error" th:if="${#fields.hasErrors('rate')}"
+              th:errors="*{rate}">rate Error</span><br>
+        <label for="cname">currency name</label> <input id="cname" type="text" placeholder="currency name" th:field="*{name}">
+        <span class="error" th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}">name Error</span>
         <input class="btn btn-secondary" type="submit" value="submit">
     </form>
     <!--<input type="number" placeholder="currency 2" >-->

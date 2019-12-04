@@ -11,6 +11,14 @@ public class CurrencyEntity implements CurrencyDTO{
     private double rate;
     private static DecimalFormat df = new DecimalFormat("0.00");
 
+    public CurrencyEntity(String name, double rate) {
+        this.name = name;
+        this.rate = rate;
+    }
+
+    public CurrencyEntity() {
+    }
+
     @Id
     @Column(name = "name", nullable = false, length = -1)
     @Override

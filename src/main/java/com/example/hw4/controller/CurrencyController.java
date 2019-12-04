@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.text.DecimalFormat;
 
+
 import javax.naming.Binding;
 import javax.validation.Valid;
 import java.util.List;
@@ -30,7 +31,7 @@ public class CurrencyController {
 //    private AccountDTO currentAcct;
 
     @GetMapping("/")
-    public String Hello(Model model, CalcForm calcForm){
+    public String Hello(Model model, CalcForm calcForm, AddCurrencyForm addCurrencyForm){
         List<? extends CurrencyDTO> currencyList = service.getAllCurrencies();
         model.addAttribute("currencyList", currencyList);
 //        model.addAttribute("CalcForm", new CalcForm());
@@ -42,8 +43,9 @@ public class CurrencyController {
     public String calc_rate(@Valid CalcForm calcForm, BindingResult bindingResult, Model model) throws IllegalException{
         List<? extends CurrencyDTO> currencyList = service.getAllCurrencies();
         model.addAttribute("currencyList", currencyList);
+        model.addAttribute("addCurrencyForm", new AddCurrencyForm());
         if (bindingResult.hasErrors()) {
-//            model.addAttribute(FIND_ACCT_FORM_OBJ_NAME, new FindAcctForm());
+//            model.addAttribute("addCurrencyForm", new AddCurrencyForm());
             return "index";
         }
         double res;
@@ -54,9 +56,35 @@ public class CurrencyController {
         double rate2 = service.getCurrencyByName(name2).getRate();
         res = num1*rate2/rate1;
         model.addAttribute("res", df.format(res));
-
         return "index";
     }
 
+    @PostMapping("/addCurrency")
+    public String addCurrency(@Valid AddCurrencyForm addCurrencyForm, BindingResult bindingResult, Model model) throws IllegalException{
+
+        if (bindingResult.hasErrors()) {
+            List<? extends CurrencyDTO> currencyList = service.getAllCurrencies();
+            model.addAttribute("currencyList", currencyList);
+            model.addAttribute("calcForm", new CalcForm());
+            return "index";
+        }
+
+        String name = addCurrencyForm.getName();
+        float rate = addCurrencyForm.getRate();
+
+        if(service.getCurrencyByName(name) == null){
+            service.createCurrency(name,rate);
+            List<? extends CurrencyDTO> currencyList = service.getAllCurrencies();
+            model.addAttribute("currencyList", currencyList);
+            model.addAttribute("calcForm", new CalcForm());
+        }else {
+//            throw new IllegalException("currency "+ name+" already exist!");
+            model.addAttribute(ErrorHandler.ERR_KEY,"err");
+            model.addAttribute(ErrorHandler.ERR_VALUE,"currency "+ name+" already exist!");
+            return ErrorHandler.ERROR_PATH;
+        }
+
+        return "index";
+    }
 
 }
