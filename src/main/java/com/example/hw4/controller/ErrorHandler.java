@@ -22,7 +22,7 @@ public class ErrorHandler implements ErrorController {
     static final String ERR_KEY = "err_type";
     static final String ERR_VALUE = "err_msg";
 
-    public final static String ERROR_PATH = "/error";
+    public final static String ERROR_PATH = "error";
 
     @ExceptionHandler(IllegalException.class)
     @ResponseStatus(HttpStatus.OK)
@@ -35,7 +35,7 @@ public class ErrorHandler implements ErrorController {
         return "error";
     }
 
-    @GetMapping(ERROR_PATH)
+    @GetMapping("/"+ERROR_PATH)
     public String handleHttpError(HttpServletRequest request, HttpServletResponse response, Model model) {
         System.out.println("404-");
         int statusCode = Integer.parseInt(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE).toString());
