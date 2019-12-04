@@ -1,5 +1,6 @@
 package com.example.hw4.controller;
 
+import java.lang.Math;
 /**
  * Created by weng on 2019/12/3.
  */
@@ -39,7 +40,7 @@ public class CalcForm {
 //    private double res;
     private String currency1;
     private String currency2;
-    private float num1;
+    private float  num1;
 
 
 }

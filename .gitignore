@@ -20,6 +20,7 @@ target/
 *.ipr
 .mvn
 lib
+src/main/resources/application.properties
 
 ### NetBeans ###
 /nbproject/private/
