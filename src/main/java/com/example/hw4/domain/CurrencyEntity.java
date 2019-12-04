@@ -1,6 +1,7 @@
 package com.example.hw4.domain;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 @Entity
@@ -8,6 +9,7 @@ import java.util.Objects;
 public class CurrencyEntity implements CurrencyDTO{
     private String name;
     private double rate;
+    private static DecimalFormat df = new DecimalFormat("0.00");
 
     @Id
     @Column(name = "name", nullable = false, length = -1)
@@ -34,7 +36,7 @@ public class CurrencyEntity implements CurrencyDTO{
     }
 
     @Basic
-    @Column(name = "rate", nullable = false, precision = 0)
+    @Column(name = "rate", nullable = false, precision = 5)
     @Override
     public double getRate() {
         return rate;
