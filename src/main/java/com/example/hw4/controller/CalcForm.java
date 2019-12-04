@@ -2,6 +2,7 @@ package com.example.hw4.controller;
 
 import org.springframework.format.annotation.NumberFormat;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.PositiveOrZero;
@@ -46,6 +47,8 @@ public class CalcForm {
     private String currency1;
     private String currency2;
 
+
+    @NotBlank(message = "Please input number")
     @NotNull(message = "Please input number")
     @PositiveOrZero(message = "number need to be positive or zero")
     private float num1;

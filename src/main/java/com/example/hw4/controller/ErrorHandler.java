@@ -4,7 +4,9 @@ import com.example.hw4.domain.IllegalException;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -16,26 +18,26 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by weng on 2019/12/4.
  */
+@Controller
+@ControllerAdvice
 public class ErrorHandler implements ErrorController {
     static final String NUMBER_NULL ="number could not be null";
     static final String NUMBER_NEG ="number should above or equal to 0";
     static final String ERR_KEY = "err_type";
     static final String ERR_VALUE = "err_msg";
 
-    public final static String ERROR_PATH = "error";
+    final static String ERROR_PATH = "error";
 
     @ExceptionHandler(IllegalException.class)
     @ResponseStatus(HttpStatus.OK)
     public String handleRequestError(IllegalException e, Model model){
-        if (e.getMessage().toUpperCase().contains("exist")) {
+//        if (e.getMessage().toUpperCase().contains("exist")) {
             model.addAttribute(ERR_KEY, "ERROR");
             model.addAttribute(ERR_VALUE, e.getMessage());
-        }
-
         return "error";
     }
 
-    @GetMapping("/"+ERROR_PATH)
+    @GetMapping("/" + ERROR_PATH)
     public String handleHttpError(HttpServletRequest request, HttpServletResponse response, Model model) {
         System.out.println("404-");
         int statusCode = Integer.parseInt(request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE).toString());
@@ -59,6 +61,6 @@ public class ErrorHandler implements ErrorController {
 
     @Override
     public String getErrorPath() {
-        return ERROR_PATH;
+        return "/"+ERROR_PATH;
     }
 }
